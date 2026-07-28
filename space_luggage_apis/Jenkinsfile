@@ -1,0 +1,5 @@
+@Library('jenkins-shared-library') _
+
+// Call the correct function from your shared library.
+// Since this project has no build steps, we don't pass any commands.
+ciPipeline()

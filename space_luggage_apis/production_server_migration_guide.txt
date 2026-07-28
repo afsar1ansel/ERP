@@ -1,0 +1,72 @@
+PRODUCTION SERVER DATABASE MIGRATION GUIDE
+Date: 2026-03-20
+Project: Space Luggage API
+
+This document provides the step-by-step SQL queries required to sync your production database with the latest changes made on March 19th and March 20th.
+
+--------------------------------------------------------------------------------
+STEP 1: CREATE THE NEW EMPLOYEE ASSIGNMENT TABLE
+--------------------------------------------------------------------------------
+This table allows for specific employee assignments per batch stage.
+
+CREATE TABLE IF NOT EXISTS `production_batch_stage_employees` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `batch_stage_id` int NOT NULL,
+  `employee_id` int NOT NULL,
+  `task_status` varchar(50) DEFAULT 'pending',
+  `notes` text,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `created_admin_id` int DEFAULT NULL,
+  `updated_admin_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `batch_stage_id` (`batch_stage_id`),
+  KEY `employee_id` (`employee_id`),
+  CONSTRAINT `pbse_batch_stage_fk` FOREIGN KEY (`batch_stage_id`) REFERENCES `production_batch_stages` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `pbse_employee_fk` FOREIGN KEY (`employee_id`) REFERENCES `employees` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+--------------------------------------------------------------------------------
+STEP 2: ADD PRIORITY COLUMN TO PRODUCTION BATCHES
+--------------------------------------------------------------------------------
+Required for drag-and-drop sorting and priority mapping.
+
+ALTER TABLE `production_batch` 
+ADD COLUMN `priority` int DEFAULT 0;
+
+
+--------------------------------------------------------------------------------
+STEP 3: MIGRATE EXISTING DATA (CRITICAL)
+--------------------------------------------------------------------------------
+This query copies existing global stage-employee mappings into the new batch-specific table, ensuring that your current active batches already have employees assigned. It uses a safer check to avoid duplicates and ensure everyone is copied correctly.
+
+INSERT INTO `production_batch_stage_employees` (batch_stage_id, employee_id, created_at)
+SELECT pbs.id, pse.stage_employee_id, NOW()
+FROM production_batch_stages pbs
+JOIN production_stage_employees pse
+  ON pbs.stage_id = pse.production_stage_id
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM production_batch_stage_employees pbse
+  WHERE pbse.batch_stage_id = pbs.id
+    AND pbse.employee_id = pse.stage_employee_id
+);
+
+
+--------------------------------------------------------------------------------
+STEP 4: TRANSITION TO STATUS-ONLY TRACKING (CLEANUP)
+--------------------------------------------------------------------------------
+Since we have moved to a status-only tracking system (pending, in-progress, complete), we no longer need the numerical progress column.
+
+ALTER TABLE `production_batch_stages` 
+DROP COLUMN `progress_percentage`;
+
+
+--------------------------------------------------------------------------------
+VERIFICATION
+--------------------------------------------------------------------------------
+After running these queries:
+1. Check that the `production_batch` table has a `priority` column.
+2. Check that the `production_batch_stage_employees` table is populated.
+3. Verify that `production_batch_stages` no longer has `progress_percentage`.

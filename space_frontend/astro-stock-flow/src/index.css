@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 215 25% 27%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 27%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 27%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 217 100% 70%;
+
+    --secondary: 214 32% 91%;
+    --secondary-foreground: 215 25% 27%;
+
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+
+    --accent: 217 91% 60%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+    
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 217 91% 60%;
+
+    --radius: 0.5rem;
+
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--primary) / 0.2);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 215 28% 17%;
+    --foreground: 210 40% 98%;
+
+    --card: 215 28% 17%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 215 28% 17%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 215 28% 17%;
+    --primary-glow: 217 100% 70%;
+
+    --secondary: 215 32% 27%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 215 32% 27%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 217 91% 60%;
+    --accent-foreground: 215 28% 17%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 210 40% 98%;
+    
+    --warning: 38 92% 50%;
+    --warning-foreground: 215 28% 17%;
+
+    --border: 215 32% 27%;
+    --input: 215 32% 27%;
+    --ring: 217 91% 60%;
+    --sidebar-background: 215 28% 17%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 210 40% 98%;
+    --sidebar-accent: 215 32% 27%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 215 32% 27%;
+    --sidebar-ring: 217 91% 60%;
+  }
+}
+
+/* Thin custom scrollbar for sidebar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(120, 120, 120, 0.5);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Tinted status bar strip to match the app header (bg-card) */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: env(safe-area-inset-top);
+    background-color: hsl(var(--card));
+    z-index: 9999;
+    pointer-events: none;
+  }
+}
+
+
+/* Add to your global CSS */
+.highlight-search-result {
+  animation: highlight-pulse 3s ease-in-out;
+  background-color: rgba(59, 130, 246, 0.1) !important;
+  border-left: 4px solid #3b82f6;
+}
+
+@keyframes highlight-pulse {
+  0% {
+    background-color: rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    background-color: rgba(59, 130, 246, 0.1);
+  }
+  100% {
+    background-color: rgba(59, 130, 246, 0.05);
+  }
+}

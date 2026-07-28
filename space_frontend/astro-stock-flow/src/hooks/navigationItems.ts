@@ -1,0 +1,48 @@
+import {
+  Package,
+  Users,
+  Warehouse,
+  Factory,
+  ClipboardCheck,
+  BarChart3,
+  Settings,
+  ShoppingBag,
+  Box,
+  LogIn,
+  ArrowLeftRight,
+} from "lucide-react";
+
+export const navigation = [
+  { name: "Dashboard", icon: BarChart3, href: "/", current: false },
+  { name: "Master Data", icon: Settings, href: "/master", current: false },
+  { name: "Orders", icon: Users, href: "/orders", current: false },
+  { name: "Employees", icon: Users, href: "/employees", current: false },
+  { name: "Vendors", icon: Users, href: "/vendors", current: false },
+  { name: "Raw Materials", icon: Box, href: "/raw-materials", current: false },
+  {
+    name: "Finished Goods",
+    icon: ShoppingBag,
+    href: "/finished-goods",
+    current: false,
+  },
+  { name: "Purchases", icon: Package, href: "/purchases", current: false },
+  { name: "Production", icon: Factory, href: "/production", current: false },
+  { name: "Dispatch", icon: Warehouse, href: "/dispatch", current: false },
+  { name: "Clients", icon: Users, href: "/clients", current: false },
+  {
+    name: "Quality Control",
+    icon: ClipboardCheck,
+    href: "/qc",
+    current: false,
+  },
+  {
+    name: "Stock Transaction",
+    icon: ArrowLeftRight,
+    href: "/stock-transection",
+    current: false,
+  },
+  { name: "Reports", icon: BarChart3, href: "/reports", current: false },
+  { name: "Employee Task", icon: ClipboardCheck, href: "/employee-task", current: false },
+  { name: "Audit Logs", icon: LogIn, href: "/audit-logs", current: false },
+  { name: "Settings", icon: Settings, href: "/settings", current: false },
+];

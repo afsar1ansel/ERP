@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">space_luggage</string>
+    <string name="title_activity_main">space_luggage</string>
+    <string name="package_name">com.space_luggage.app</string>
+    <string name="custom_url_scheme">com.space_luggage.app</string>
+</resources>

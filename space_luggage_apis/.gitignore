@@ -1,0 +1,60 @@
+# ----------------------------------------------------------------
+# .gitignore for FastAPI + PostgreSQL Project
+# ----------------------------------------------------------------
+
+### Virtual Environments ###
+# Ignore the virtual environment folder to avoid committing project-specific dependencies.
+venv/
+.venv/
+env/
+.env/
+.tox/
+
+### Python Cache & Compiled Files ###
+# Ignore Python's cache and compiled files.
+__pycache__/
+*.py[cod]
+*$py.class
+
+### IDE and Editor Directories ###
+# Ignore configuration files from popular code editors.
+.vscode/
+.idea/
+*.swp
+*.swo
+
+### Environment Variables ###
+# Crucial for security: Never commit your secrets!
+# This file typically contains your database password, secret keys, etc.
+.env
+.env.*
+!.env.example
+
+### Database ###
+# Ignore any local database dumps or files.
+*.sql
+*.sqlite3
+db.sqlite3
+
+### Testing & Coverage Reports ###
+# Ignore files generated during testing.
+.pytest_cache/
+htmlcov/
+.coverage
+.coverage.*
+
+### Build & Distribution Artifacts ###
+# Ignore packaging and build folders.
+build/
+dist/
+*.egg-info/
+
+### Log Files ###
+# Ignore application and server logs.
+*.log
+logs/
+
+### OS-specific Files ###
+# Ignore metadata files from macOS and Windows.
+.DS_Store
+Thumbs.db
