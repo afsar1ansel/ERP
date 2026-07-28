@@ -205,12 +205,13 @@ export const AIChatAssistant: React.FC<AIChatAssistantProps> = ({ mode = "floati
       const errorMessage: ChatMessage = {
         id: `bot-err-${Date.now()}`,
         sender: "assistant",
-        text: `Network Error: Unable to connect to backend at ${BASE_URL}/ai-chat. Please verify the Flask server is running.`,
+        text: `Connection Notice: Could not complete request to backend (${BASE_URL}/ai-chat). ${error?.message || "Please check server status or rephrase query."}`,
         errFlag: true,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
       };
       setMessages((prev) => [...prev, errorMessage]);
     } finally {
+
       setLoading(false);
     }
   };

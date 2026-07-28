@@ -32,8 +32,11 @@ interface ApiResponse {
   data: Record<string, any>[];
 }
 
-const BACKEND_URL = "http://127.0.0.1:8090/api/ai-chat";
+import { BASE_URL } from "@/hooks/baseUrls";
+
+const BACKEND_URL = `${BASE_URL}/ai-chat`;
 const SHOW_DEV_TOOLS = false; // Set to false so normal users do not see SQL / Table inspect accordions
+
 
 const SUGGESTED_PROMPTS: string[] = [
   "Show me total count of finished goods",
@@ -215,12 +218,13 @@ export const AIChatDrawer: React.FC = () => {
       const botNetworkErrMsg: ChatMessage = {
         id: `bot-net-err-${Date.now()}`,
         sender: "bot",
-        text: `Network Error: Could not connect to Flask backend at ${BACKEND_URL}. Ensure the server is running on port 8090.`,
+        text: `Connection Notice: Could not complete request to backend (${BACKEND_URL}). ${networkErr?.message || "Please check server status or rephrase query."}`,
         errFlag: true,
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
       };
       setMessages((prev) => [...prev, botNetworkErrMsg]);
     } finally {
+
       setLoading(false);
     }
   };
@@ -229,8 +233,6 @@ export const AIChatDrawer: React.FC = () => {
     setExpandedSqlId((prev) => (prev === msgId ? null : msgId));
   };
 
-  return (
-    <>
   return (
     <>
       {/* Floating Action Button (FAB) */}
