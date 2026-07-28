@@ -19,6 +19,8 @@ import { useState } from "react";
 import { usePermissions } from "@/hooks/usePermissions";
 import { navigation } from "@/hooks/navigationItems";
 
+import { LogoText } from "@/components/common/LogoText";
+
 export function Sidebar() {
   const location = useLocation();
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -28,8 +30,6 @@ export function Sidebar() {
     hasPermission(item.name),
   );
 
-  const logo = localStorage.getItem("logo");
-
   return (
     <div
       className={cn(
@@ -38,21 +38,24 @@ export function Sidebar() {
       )}
     >
       {/* Logo and Toggle */}
-      <div className="flex h-16 items-center justify-between border-b border-border flex-shrink-0 px-2">
-        {!isCollapsed && (
-          <Link to="/">
-            <img src={logo} alt="logo" className="h-14 w-48 object-cover" />
-          </Link>
-        )}
+      <div className="flex h-16 items-center justify-between border-b border-border flex-shrink-0 px-3">
+        <Link to="/" className="flex items-center overflow-hidden">
+          {isCollapsed ? (
+            <LogoText showSubtitle={false} textSize="hidden" />
+          ) : (
+            <LogoText />
+          )}
+        </Link>
         <Button
           variant="ghost"
           size="icon"
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="h-8 w-8"
+          className="h-8 w-8 shrink-0 ml-1"
         >
           <Menu className="h-4 w-4" />
         </Button>
       </div>
+
 
       {/* Scrollable Navigation */}
       <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-transparent px-2 py-4">

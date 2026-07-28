@@ -106,5 +106,14 @@ app.register_blueprint(ai_chat_blueprint, url_prefix='/api')
 def serverStatus():
     return "Server is running"
 
+
+@app.cli.command("reset-coffee-db")
+def reset_coffee_db_cli():
+    """CLI command to purge luggage domain mock data and initialize Coffee ERP default admin."""
+    from scripts.reset_for_coffee_domain import reset_database_for_coffee_domain
+    reset_database_for_coffee_domain()
+
+
 if __name__ == '__main__':
     app.run(debug=True,port=8090) # host='0.0.0.0'
+

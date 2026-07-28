@@ -16,8 +16,9 @@ import { Eye, EyeOff, LogIn } from "lucide-react";
 import { BASE_URL } from "@/hooks/baseUrls";
 
 import { useToast } from "@/hooks/use-toast";
-import logo from "../../public/space.jpg";
+import { LogoText } from "@/components/common/LogoText";
 import "../LoginBackground.scss";
+
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -129,9 +130,10 @@ export default function Login() {
       {/* 1. The Animated Background Layer: Fixed position, low z-index */}
       <div className="animated-background"></div>
       <div className="min-h-screen flex flex-col items-center justify-center p-4 -mt-16">
-        <div className="mb-4">
-          <img src={logo} alt="logo" className="h-20 w-72" />
+        <div className="mb-6">
+          <LogoText iconSize="w-11 h-11" textSize="text-2xl" subtextSize="text-[10px]" />
         </div>
+
         <Card className="w-full max-w-md shadow-2xl">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl text-center">Welcome Back</CardTitle>

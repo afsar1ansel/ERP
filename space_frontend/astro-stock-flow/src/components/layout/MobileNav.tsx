@@ -17,9 +17,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useLocation, Link } from "react-router-dom";
-import logo from "../../../public/space.jpg";
+import { LogoText } from "@/components/common/LogoText";
 import { usePermissions } from "@/hooks/usePermissions";
 import { navigation } from "@/hooks/navigationItems";
+
 
 export function MobileNav() {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -48,16 +49,9 @@ export function MobileNav() {
           {/* Mobile Nav Header */}
           <div className="flex h-16 items-center justify-between border-b border-border px-4">
             <Link to="/" onClick={() => setIsMobileNavOpen(false)}>
-              <img
-                src={logo}
-                alt="logo"
-                className="h-12 sm:h-14 w-auto"
-                onError={(e) =>
-                  (e.currentTarget.src =
-                    "https/placehold.co/192x56/000000/FFF?text=Space+Logo")
-                }
-              />
+              <LogoText />
             </Link>
+
             <Button
               variant="ghost"
               size="icon"

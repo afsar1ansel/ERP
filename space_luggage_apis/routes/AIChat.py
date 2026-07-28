@@ -132,8 +132,10 @@ CRITICAL RULES:
 2. Do NOT wrap the query in markdown code blocks like ```sql or ```.
 3. Do NOT provide explanations, commentary, or text before/after the SQL query.
 4. Only generate read-only SELECT queries.
-5. If column names are ambiguous, use table aliases (e.g., SELECT p.sku_code FROM products_sku p).
+5. Ensure all table aliases match the table in the FROM clause (e.g. `SELECT r.stock_qty FROM raw_materials r` or `SELECT f.stock_qty FROM finished_goods f`). NEVER use undefined aliases like `p.` on `raw_materials`.
+6. For conversational/follow-up questions like "why everything is 0" or general questions, query relevant inventory summary totals (e.g., `SELECT 'finished_goods' AS item_type, COUNT(*) AS count, SUM(stock_qty) AS total_qty FROM finished_goods UNION ALL SELECT 'raw_materials', COUNT(*), SUM(stock_qty) FROM raw_materials`).
 """
+
 
 
 def call_ollama(prompt: str, system_prompt: str = "", timeout_seconds: int = REQUEST_TIMEOUT_SECONDS) -> str:
@@ -366,13 +368,20 @@ def ai_chat():
         try:
             db_results: List[Dict[str, Any]] = execute_safe_query(cleaned_sql)
         except Exception as db_err:
+            # Deliver friendly executive chat response instead of breaking UI with raw SQL stack traces
+            friendly_err_msg = (
+                "I apologize, but I couldn't process that query against the current database structure. "
+                "The database tables were recently reset for the Coffee ERP transition. "
+                "Please try asking specific questions like **'Show finished goods inventory'** or **'List active employees'**."
+            )
             return jsonify({
-                "errFlag": True,
-                "message": f"Database execution error: {str(db_err)}",
-                "answer": None,
+                "errFlag": False,
+                "message": f"Query execution error: {str(db_err)}",
+                "answer": friendly_err_msg,
                 "sql": cleaned_sql,
                 "data": []
-            }), 500
+            }), 200
+
 
         # Step C: Format results into natural language answer via Ollama
         natural_answer: str = generate_natural_language_response(user_prompt, cleaned_sql, db_results)
