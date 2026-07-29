@@ -279,7 +279,7 @@ export const EditPurchaseOrderForm = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="w-[95vw] max-w-6xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Edit Purchase Order - {formData.poNumber}</DialogTitle>
         </DialogHeader>
@@ -333,7 +333,7 @@ export const EditPurchaseOrderForm = ({
                 key={index}
                 className="grid grid-cols-12 gap-3 items-end p-4 border rounded-lg"
               >
-                <div className="col-span-3">
+                <div className="col-span-4">
                   <Label className="text-xs">Raw Material *</Label>
                   <Select
                     value={item.rawMaterialId}
@@ -341,29 +341,30 @@ export const EditPurchaseOrderForm = ({
                       handleItemChange(index, "rawMaterialId", value)
                     }
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Select a material" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent className="w-[380px] max-h-[220px]">
                       {rawMaterials.map((material) => (
                         <SelectItem key={material.id} value={material.id}>
-                          {material.name}
+                          <span className="truncate">{material.name}</span>
                         </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="col-span-3">
+                <div className="col-span-2">
                   <Label className="text-xs">Alias</Label>
                   <Input
                     type="text"
-                    placeholder="e.g. 'Main Zipper'"
+                    placeholder="e.g. 'Main Batch'"
                     value={item.alias}
                     onChange={(e) =>
                       handleItemChange(index, "alias", e.target.value)
                     }
                   />
                 </div>
+
                 <div className="col-span-2">
                   <Label className="text-xs">Quantity *</Label>
                   <Input

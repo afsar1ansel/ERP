@@ -134,8 +134,22 @@ const FormattedMarkdown: React.FC<{ content: string }> = ({ content }) => {
 
 
 
+import { useLocation } from "react-router-dom";
+
 export const AIChatDrawer: React.FC = () => {
+  const location = useLocation();
+  const token = localStorage.getItem("token");
+
+  if (
+    location.pathname === "/login" ||
+    location.pathname === "/employee-login" ||
+    !token
+  ) {
+    return null;
+  }
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
   const [promptInput, setPromptInput] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [messages, setMessages] = useState<ChatMessage[]>([

@@ -276,7 +276,7 @@ export const CreatePurchaseOrderForm = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="w-[95vw] max-w-6xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Create Purchase Order</DialogTitle>
         </DialogHeader>
@@ -336,12 +336,11 @@ export const CreatePurchaseOrderForm = ({
 
             <div className="space-y-3">
               {formData.items.map((item, index) => (
-                // 5. UPDATED JSX AND GRID LAYOUT
                 <div
                   key={index}
                   className="grid grid-cols-12 gap-3 items-end p-4 border rounded-lg"
                 >
-                  <div className="col-span-3">
+                  <div className="col-span-4">
                     <Label className="text-xs">Raw Material *</Label>
                     <Popover
                       open={openRowIndex === index}
@@ -355,21 +354,23 @@ export const CreatePurchaseOrderForm = ({
                           variant="outline"
                           role="combobox"
                           aria-expanded={openRowIndex === index}
-                          className="w-full justify-between font-normal"
+                          className="w-full justify-between font-normal text-left px-3 overflow-hidden"
                         >
-                          {item.rawMaterialId
-                            ? rawMaterials.find(
-                                (material) =>
-                                  material.id === item.rawMaterialId,
-                              )?.name
-                            : "Select a material"}
-                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                          <span className="truncate pr-2">
+                            {item.rawMaterialId
+                              ? rawMaterials.find(
+                                  (material) =>
+                                    material.id === item.rawMaterialId,
+                                )?.name
+                              : "Select a material"}
+                          </span>
+                          <ChevronsUpDown className="h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                       </PopoverTrigger>
-                      <PopoverContent className="w-[200px] p-0">
+                      <PopoverContent className="w-[380px] p-0" align="start">
                         <Command>
                           <CommandInput placeholder="Search material..." />
-                          <CommandList className="max-h-[200px] overflow-y-auto">
+                          <CommandList className="max-h-[220px] overflow-y-auto">
                             <CommandEmpty>No material found.</CommandEmpty>
                             <CommandGroup>
                               {rawMaterials.map((material) => (
@@ -387,13 +388,13 @@ export const CreatePurchaseOrderForm = ({
                                 >
                                   <Check
                                     className={cn(
-                                      "mr-2 h-4 w-4",
+                                      "mr-2 h-4 w-4 shrink-0",
                                       item.rawMaterialId === material.id
                                         ? "opacity-100"
                                         : "opacity-0",
                                     )}
                                   />
-                                  {material.name}
+                                  <span className="truncate">{material.name}</span>
                                 </CommandItem>
                               ))}
                             </CommandGroup>
@@ -403,11 +404,11 @@ export const CreatePurchaseOrderForm = ({
                     </Popover>
                   </div>
 
-                  <div className="col-span-3">
+                  <div className="col-span-2">
                     <Label className="text-xs">Alias</Label>
                     <Input
                       type="text"
-                      placeholder="e.g. 'Main Zipper'"
+                      placeholder="e.g. 'Main Batch'"
                       value={item.alias}
                       onChange={(e) =>
                         handleItemChange(index, "alias", e.target.value)
@@ -415,10 +416,7 @@ export const CreatePurchaseOrderForm = ({
                     />
                   </div>
 
-                  {/* ====== QUANTITY (GRID UPDATED) ====== */}
                   <div className="col-span-2">
-                    {" "}
-                    {/* <-- WAS col-span-2 */}
                     <Label className="text-xs">Quantity *</Label>
                     <Input
                       type="number"
@@ -435,7 +433,6 @@ export const CreatePurchaseOrderForm = ({
                     />
                   </div>
 
-                  {/* ====== UNIT PRICE (GRID UPDATED) ====== */}
                   <div className="col-span-2">
                     <Label className="text-xs">Unit Price *</Label>
                     <Input
@@ -455,30 +452,28 @@ export const CreatePurchaseOrderForm = ({
                   </div>
 
                   <div className="col-span-1">
-                    {" "}
-                    {/* <-- WAS col-span-2 */}
                     <Label className="text-xs">Total</Label>
                     <Input
                       value={`₹${item.total.toFixed(2)}`}
                       readOnly
-                      className="bg-muted"
+                      className="bg-muted px-1 text-xs overflow-hidden text-ellipsis"
                     />
                   </div>
 
-                  {/* ====== REMOVE BUTTON (GRID UPDATED) ====== */}
-                  <div className="col-span-1 flex items-center">
+                  <div className="col-span-1 flex items-center justify-center">
                     <Button
                       type="button"
                       variant="destructive"
                       size="sm"
                       onClick={() => handleRemoveItem(index)}
                       disabled={formData.items.length === 1}
-                      className="p-2 h-8 w-8"
+                      className="p-2 h-9 w-9"
                     >
                       <Minus className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
+
               ))}
             </div>
 

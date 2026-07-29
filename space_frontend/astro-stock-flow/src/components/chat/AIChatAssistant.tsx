@@ -133,8 +133,23 @@ const FormattedMarkdown: React.FC<{ content: string }> = ({ content }) => {
 
 
 
+import { useLocation } from "react-router-dom";
+
 export const AIChatAssistant: React.FC<AIChatAssistantProps> = ({ mode = "floating" }) => {
+  const location = useLocation();
+  const token = localStorage.getItem("token");
+
+  // Do not render AI Chat Assistant on login screens or if not authenticated
+  if (
+    location.pathname === "/login" ||
+    location.pathname === "/employee-login" ||
+    !token
+  ) {
+    return null;
+  }
+
   const [isOpen, setIsOpen] = useState<boolean>(mode === "standalone");
+
   const [input, setInput] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [messages, setMessages] = useState<ChatMessage[]>([

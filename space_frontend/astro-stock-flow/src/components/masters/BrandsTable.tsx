@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { ItemAvatar } from "@/components/common/ItemAvatar";
+
 import {
   Table,
   TableBody,
@@ -184,12 +186,13 @@ useEffect(() => {
             {currentData.map((brand) => (
               <TableRow key={brand.id}>
                 <TableCell>
-                  <div className="w-10 h-10 bg-muted rounded flex items-center justify-center">
-                    <span className="text-xs font-medium">
-                      <img src={brand.brand_logo} alt="brand logo" />
-                    </span>
-                  </div>
+                  <ItemAvatar
+                    src={brand.brand_logo}
+                    name={brand.brand_name}
+                    size="sm"
+                  />
                 </TableCell>
+
                 <TableCell className="font-medium">
                   {brand.brand_name}
                 </TableCell>

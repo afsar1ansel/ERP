@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
+import { ItemAvatar } from "@/components/common/ItemAvatar";
+
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -926,20 +929,16 @@ const RawMaterials = () => {
                     {currentData.map((material) => (
                       <TableRow key={material.id}>
                         <TableCell>
-                          <div
-                            className="w-12 h-12 bg-muted rounded flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity"
+                          <ItemAvatar
+                            src={material.raw_material_image}
+                            name={material.material_name}
                             onClick={() => {
                               setSelectedImage(material.raw_material_image);
                               setIsImageModalOpen(true);
                             }}
-                          >
-                            <img
-                              src={material.raw_material_image}
-                              alt="row material image"
-                              className="max-w-full max-h-full object-cover rounded"
-                            />
-                          </div>
+                          />
                         </TableCell>
+
                         <TableCell>
                           <div>
                             <div className="font-medium">

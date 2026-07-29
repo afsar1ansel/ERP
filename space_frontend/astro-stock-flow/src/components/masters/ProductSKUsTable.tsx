@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { ItemAvatar } from "@/components/common/ItemAvatar";
+
 import { ProductSKUForm } from "@/components/forms/ProductSKUForm";
 import {
   Table,
@@ -221,12 +223,13 @@ export const ProductSKUsTable = ({ mockProductSKUs, setMockProductSKUs }) => {
             {currentData.map((product) => (
               <TableRow key={product.id}>
                 <TableCell>
-                  <div className="w-10 h-10 bg-muted rounded flex items-center justify-center">
-                    <span className="text-xs">
-                      <img src={product.product_image} alt="" />
-                    </span>
-                  </div>
+                  <ItemAvatar
+                    src={product.product_image}
+                    name={product.product_name}
+                    size="sm"
+                  />
                 </TableCell>
+
                 <TableCell className="font-medium">
                   {product.product_name}
                 </TableCell>

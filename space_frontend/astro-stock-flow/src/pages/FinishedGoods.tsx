@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
+import { ItemAvatar } from "@/components/common/ItemAvatar";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -674,20 +676,16 @@ const FinishedGoods = () => {
                     {currentData.map((product) => (
                       <TableRow key={product.id}>
                         <TableCell>
-                          <div 
-                            className="w-12 h-12 bg-muted rounded flex items-center justify-center cursor-pointer hover:opacity-80 transition-opacity"
+                          <ItemAvatar
+                            src={product.product_image}
+                            name={product.product_name}
                             onClick={() => {
                               setSelectedImage(product.product_image);
                               setIsImageModalOpen(true);
                             }}
-                          >
-                            <img
-                              src={product.product_image}
-                              alt={product.product_name}
-                              className="max-w-full max-h-full object-cover rounded"
-                            />
-                          </div>
+                          />
                         </TableCell>
+
                         <TableCell>
                           <div>
                             <div className="font-medium">
