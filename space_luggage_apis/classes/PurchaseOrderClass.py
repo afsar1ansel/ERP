@@ -47,7 +47,7 @@ class PurchaseOrderClass:
         po_number = self.generate_po_number()
 
         # Calculate grand total
-        grand_total = sum(float(item['totalPrice']) for item in poItems)
+        grand_total = sum(float(item.get('totalPrice', item.get('total', 0))) for item in poItems)
         data = {
             'poNumber': po_number,
             'vendorId': vendorId,
@@ -96,12 +96,12 @@ class PurchaseOrderClass:
                     for item in poItems:
                         item_data = {
                             'poId': po_id,
-                            'alias': item['alias'],
-                            'rawMaterialId': item['rawMaterialId'],
-                            'orderedQty': item['quantity'],
+                            'alias': item.get('alias', ''),
+                            'rawMaterialId': item.get('rawMaterialId'),
+                            'orderedQty': item.get('quantity', item.get('orderedQty', 0)),
                             'receivedQty': 0,
-                            'unitPrice': item['unitPrice'],
-                            'totalPrice': item['totalPrice'],
+                            'unitPrice': item.get('unitPrice', 0),
+                            'totalPrice': item.get('totalPrice', item.get('total', 0)),
                             'itemStatus': 'pending',
                             'createdAt': datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                         }
@@ -136,8 +136,9 @@ class PurchaseOrderClass:
                 return po_id    
             
         except Exception as e:
-            # The transaction is automatically rolled back on exception
-            return {"errFlag": 1, "message": "Error adding purchase order"}
+            print("Error in addPurchaseOrder:", e)
+            return {"errFlag": 1, "message": f"Error adding purchase order: {str(e)}"}
+
 
     def updatePurchaseOrder(self, poId, vendorId, expectedDispatchDate, notes, poItems, adminUserId):
         # Validate PO exists

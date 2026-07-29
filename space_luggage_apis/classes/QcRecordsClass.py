@@ -140,8 +140,8 @@ class QcRecordsClass:
         with db.engine.connect() as conn:
             result = conn.execute(sql, data)
             conn.commit()
-        
-        return result.rowcount
+            return result.lastrowid
+
 
     def updateQcRecord(self, qcId, qcCode, entityType, entityId, itemName, inspectorName, testTypeId, testParameters, remarks, result, defect_count, qcImageFile, adminUserId):
         # Check duplicate QC code excluding current record

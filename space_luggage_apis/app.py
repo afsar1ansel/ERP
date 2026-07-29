@@ -114,6 +114,14 @@ def reset_coffee_db_cli():
     reset_database_for_coffee_domain()
 
 
+@app.cli.command("seed-coffee-db")
+def seed_coffee_db_cli():
+    """CLI command to seed realistic Bean Good Specialty Coffee ERP data."""
+    from scripts.seed_bean_good_domain import seed_bean_good_database
+    seed_bean_good_database()
+
+
 if __name__ == '__main__':
     app.run(debug=True,port=8090) # host='0.0.0.0'
+
 

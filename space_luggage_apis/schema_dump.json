@@ -1,0 +1,3953 @@
+{
+  "admin_role_pages": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "page_name",
+      "type": "varchar(255)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint(1)",
+      "null": "NO",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "null": "YES",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp",
+      "null": "YES",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "page_route",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "admin_roles": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "role_name",
+      "type": "varchar(255)",
+      "null": "NO",
+      "key": "UNI",
+      "default": "None"
+    },
+    {
+      "name": "page_access",
+      "type": "json",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "null": "YES",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp",
+      "null": "YES",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint(1)",
+      "null": "NO",
+      "key": "",
+      "default": "1"
+    }
+  ],
+  "admin_users": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "username",
+      "type": "varchar(100)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "email",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "password",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "token",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "role_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_date",
+      "type": "date",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "audit_logs": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "event_time",
+      "type": "datetime",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "admin_username",
+      "type": "varchar(150)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "action_type",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "detail",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "object_table",
+      "type": "varchar(100)",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "object_id",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "route",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "http_method",
+      "type": "varchar(10)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "ip_address",
+      "type": "varchar(45)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "user_agent",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "old_value",
+      "type": "json",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "new_value",
+      "type": "json",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "extra",
+      "type": "json",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint(1)",
+      "null": "YES",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "brands": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "brand_name",
+      "type": "varchar(255)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "brand_code",
+      "type": "varchar(30)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "brand_logo",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "brand_logo_public_id",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint",
+      "null": "YES",
+      "key": "MUL",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "client_types": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "type_name",
+      "type": "varchar(150)",
+      "null": "NO",
+      "key": "UNI",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint(1)",
+      "null": "NO",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "clients": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "client_name",
+      "type": "varchar(255)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "contact_person",
+      "type": "varchar(255)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "client_type",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "email",
+      "type": "varchar(100)",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "phone",
+      "type": "varchar(20)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "website",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "gst_number",
+      "type": "varchar(50)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "credit_limit",
+      "type": "decimal(10,2)",
+      "null": "YES",
+      "key": "",
+      "default": "0.00"
+    },
+    {
+      "name": "payment_terms",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "billing_address",
+      "type": "text",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "billing_addr_city",
+      "type": "varchar(100)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "billing_addr_state",
+      "type": "varchar(100)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "billing_addr_pincode",
+      "type": "varchar(20)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "shipping_address",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "shipping_addr_city",
+      "type": "varchar(100)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "shipping_addr_state",
+      "type": "varchar(100)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "shipping_addr_pincode",
+      "type": "varchar(20)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "Outstanding",
+      "type": "decimal(15,2)",
+      "null": "YES",
+      "key": "",
+      "default": "0.00"
+    },
+    {
+      "name": "notes",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "total_orders",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "0"
+    },
+    {
+      "name": "status",
+      "type": "tinyint",
+      "null": "YES",
+      "key": "MUL",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    }
+  ],
+  "company_info_settings": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "company_name",
+      "type": "varchar(255)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "gstin",
+      "type": "varchar(20)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "phone",
+      "type": "varchar(20)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "email",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "address",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "logo_url",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "logo_public_id",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint(1)",
+      "null": "NO",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "defect_types": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "defect_code",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "defect_name",
+      "type": "varchar(100)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "category",
+      "type": "varchar(100)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "severity",
+      "type": "varchar(50)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "description",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "corrective_action",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint(1)",
+      "null": "YES",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "departments": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "department_code",
+      "type": "varchar(100)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "department_name",
+      "type": "varchar(100)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "department_description",
+      "type": "text",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "department_head_emp_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "location",
+      "type": "varchar(150)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "employees_count",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "0"
+    },
+    {
+      "name": "budget",
+      "type": "decimal(15,2)",
+      "null": "YES",
+      "key": "",
+      "default": "0.00"
+    },
+    {
+      "name": "status",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "create_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "dispatch_orders": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "dispatch_id",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "order_reference",
+      "type": "varchar(100)",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "priority",
+      "type": "varchar(20)",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "customer_id",
+      "type": "int",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "shipping_address",
+      "type": "text",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "notes",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "no_of_boxes",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "grand_total",
+      "type": "decimal(10,2)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "tracking",
+      "type": "varchar(50)",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "dispatch_status",
+      "type": "varchar(20)",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "dispatch_date",
+      "type": "date",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "dispatch_orders_items": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "dispatch_order_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "product_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "ordered_quantity",
+      "type": "decimal(10,2)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "available_unit",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "unit_price",
+      "type": "decimal(10,2)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "total",
+      "type": "decimal(10,2)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    }
+  ],
+  "employee_jobs": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "employee_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "job_code",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint",
+      "null": "NO",
+      "key": "MUL",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "employees": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "employee_code",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "UNI",
+      "default": "None"
+    },
+    {
+      "name": "name",
+      "type": "varchar(255)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "phone",
+      "type": "varchar(20)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "email",
+      "type": "varchar(255)",
+      "null": "NO",
+      "key": "UNI",
+      "default": "None"
+    },
+    {
+      "name": "department_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "role",
+      "type": "varchar(100)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "emp_status",
+      "type": "varchar(30)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint",
+      "null": "NO",
+      "key": "MUL",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "fg_stock_adjustments": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "adjustment_type",
+      "type": "varchar(30)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "finished_good_id",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "adjustment_qty",
+      "type": "decimal(18,4)",
+      "null": "NO",
+      "key": "",
+      "default": "0.0000"
+    },
+    {
+      "name": "reason",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "notes",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint",
+      "null": "NO",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "MUL",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "finished_goods": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "product_name",
+      "type": "varchar(255)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "product_image",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "product_image_public_id",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "sku_code",
+      "type": "varchar(100)",
+      "null": "YES",
+      "key": "UNI",
+      "default": "None"
+    },
+    {
+      "name": "brand_id",
+      "type": "int",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "product_category_id",
+      "type": "int",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "stock_qty",
+      "type": "decimal(18,4)",
+      "null": "NO",
+      "key": "",
+      "default": "0.0000"
+    },
+    {
+      "name": "min_level",
+      "type": "decimal(18,4)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "max_level",
+      "type": "decimal(18,4)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "storage_location_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "unit_price",
+      "type": "decimal(18,2)",
+      "null": "YES",
+      "key": "",
+      "default": "0.00"
+    },
+    {
+      "name": "total_value",
+      "type": "decimal(18,2)",
+      "null": "YES",
+      "key": "",
+      "default": "0.00"
+    },
+    {
+      "name": "raw_material_cost",
+      "type": "decimal(18,2)",
+      "null": "YES",
+      "key": "",
+      "default": "0.00"
+    },
+    {
+      "name": "velocity",
+      "type": "varchar(50)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "goods_status",
+      "type": "varchar(30)",
+      "null": "YES",
+      "key": "",
+      "default": "in-stock"
+    },
+    {
+      "name": "last_produced",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "1"
+    }
+  ],
+  "jobs": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "job_code",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "UNI",
+      "default": "None"
+    },
+    {
+      "name": "job_title",
+      "type": "varchar(255)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "job_description",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint",
+      "null": "NO",
+      "key": "MUL",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "order_status_history": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "order_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "old_status",
+      "type": "varchar(50)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "new_status",
+      "type": "varchar(50)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "change_reason",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "changed_by_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "changed_at",
+      "type": "timestamp",
+      "null": "YES",
+      "key": "MUL",
+      "default": "CURRENT_TIMESTAMP"
+    }
+  ],
+  "orders": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "order_code",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "UNI",
+      "default": "None"
+    },
+    {
+      "name": "client_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "product_sku_id",
+      "type": "int",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "quantity",
+      "type": "decimal(10,2)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "raw_materials_json",
+      "type": "json",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "order_status",
+      "type": "varchar(50)",
+      "null": "YES",
+      "key": "MUL",
+      "default": "pending"
+    },
+    {
+      "name": "status",
+      "type": "tinyint",
+      "null": "YES",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "notes",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "expected_delivery_date",
+      "type": "date",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "null": "YES",
+      "key": "MUL",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp",
+      "null": "YES",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    }
+  ],
+  "payment_terms": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "term_name",
+      "type": "varchar(150)",
+      "null": "NO",
+      "key": "UNI",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint(1)",
+      "null": "NO",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "product_categories": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "product_category_name",
+      "type": "varchar(255)",
+      "null": "NO",
+      "key": "UNI",
+      "default": "None"
+    },
+    {
+      "name": "product_description",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "product_category_image",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "product_category_image_public_id",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint(1)",
+      "null": "NO",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "product_raw_material_consumption": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "product_sku_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "raw_material_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "quantity",
+      "type": "decimal(10,4)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "unit",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint",
+      "null": "NO",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "production_batch": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "production_code",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "UNI",
+      "default": "None"
+    },
+    {
+      "name": "product_id",
+      "type": "int",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "planned_qty",
+      "type": "decimal(18,4)",
+      "null": "NO",
+      "key": "",
+      "default": "0.0000"
+    },
+    {
+      "name": "completed_qty",
+      "type": "decimal(18,4)",
+      "null": "NO",
+      "key": "",
+      "default": "0.0000"
+    },
+    {
+      "name": "client_id",
+      "type": "int",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "floor",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "expected_completion_date",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "production_head_employee_id",
+      "type": "int",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "production_notes",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "batch_status",
+      "type": "varchar(30)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "order_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "priority",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "0"
+    }
+  ],
+  "production_batch_stage_employees": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "batch_stage_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "employee_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "task_status",
+      "type": "varchar(50)",
+      "null": "YES",
+      "key": "",
+      "default": "pending"
+    },
+    {
+      "name": "notes",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "production_batch_stages": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "batch_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "stage_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "stage_status",
+      "type": "varchar(30)",
+      "null": "YES",
+      "key": "",
+      "default": "pending"
+    },
+    {
+      "name": "end_at",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "notes",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "weightage",
+      "type": "decimal(5,2)",
+      "null": "NO",
+      "key": "",
+      "default": "0.00"
+    }
+  ],
+  "production_receipts": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "production_batch_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "product_sku_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "finished_goods_id",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "received_qty",
+      "type": "decimal(18,4)",
+      "null": "NO",
+      "key": "",
+      "default": "0.0000"
+    },
+    {
+      "name": "storage_location_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "notes",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint",
+      "null": "NO",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "MUL",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "production_stage": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "stage_name",
+      "type": "varchar(255)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "stage_head_employee_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint(1)",
+      "null": "YES",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "update_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "production_stage_categories": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "category_name",
+      "type": "varchar(150)",
+      "null": "NO",
+      "key": "UNI",
+      "default": "None"
+    },
+    {
+      "name": "stages",
+      "type": "text",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint(1)",
+      "null": "NO",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "production_stage_employees": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "production_stage_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "stage_employee_id",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "update_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "products_sku": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "product_name",
+      "type": "varchar(255)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "brand_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "min_stock_level",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "product_category_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "product_description",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "product_image",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "product_image_public_id",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint",
+      "null": "NO",
+      "key": "MUL",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "labour_freight_charge",
+      "type": "decimal(10,2)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "purchase_order_items": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "po_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "alias",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "raw_material_id",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "ordered_qty",
+      "type": "decimal(10,2)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "received_qty",
+      "type": "decimal(10,2)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "unit_price",
+      "type": "decimal(10,2)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "total_price",
+      "type": "decimal(10,2)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "item_status",
+      "type": "varchar(30)",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    }
+  ],
+  "purchase_orders": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "po_number",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "UNI",
+      "default": "None"
+    },
+    {
+      "name": "vendor_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "expected_dispatch_date",
+      "type": "date",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "actual_dispatch_date",
+      "type": "date",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "notes",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "completion_percent",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "grand_total",
+      "type": "decimal(15,2)",
+      "null": "YES",
+      "key": "",
+      "default": "0.00"
+    },
+    {
+      "name": "po_status",
+      "type": "varchar(30)",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "qc_records": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "qc_code",
+      "type": "varchar(50)",
+      "null": "YES",
+      "key": "UNI",
+      "default": "None"
+    },
+    {
+      "name": "entity_type",
+      "type": "varchar(100)",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "entity_id",
+      "type": "varchar(100)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "item_name",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "inspector_name",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "test_type_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "defect_count",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "test_parameters",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "remarks",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "result",
+      "type": "varchar(50)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "qc_image_url",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "qc_image_public_id",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "varchar(30)",
+      "null": "YES",
+      "key": "",
+      "default": "open"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "qc_test_type": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "test_type_name",
+      "type": "varchar(100)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "raw_material_categories": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "category_name",
+      "type": "varchar(255)",
+      "null": "NO",
+      "key": "UNI",
+      "default": "None"
+    },
+    {
+      "name": "category_description",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "category_image",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "category_image_public_id",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint(1)",
+      "null": "NO",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "raw_material_consumption_receipt": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "production_batch_id",
+      "type": "int",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "raw_material_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "consumed_qty",
+      "type": "decimal(18,4)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "unit",
+      "type": "varchar(50)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "unit_cost",
+      "type": "decimal(12,2)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "total_cost",
+      "type": "decimal(14,2)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "notes",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "MUL",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint",
+      "null": "NO",
+      "key": "",
+      "default": "1"
+    }
+  ],
+  "raw_material_vendors": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "raw_material_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "vendor_id",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "null": "YES",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    }
+  ],
+  "raw_materials": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "material_code",
+      "type": "varchar(50)",
+      "null": "YES",
+      "key": "UNI",
+      "default": "None"
+    },
+    {
+      "name": "material_name",
+      "type": "varchar(255)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "material_description",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "raw_material_category_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "specification",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "stock_qty",
+      "type": "decimal(10,2)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "min_stock_level",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "max_stock_level",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "unit_of_measure",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "storage_location_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "vendor_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "unit_cost",
+      "type": "decimal(12,2)",
+      "null": "NO",
+      "key": "",
+      "default": "0.00"
+    },
+    {
+      "name": "total_value",
+      "type": "decimal(14,2)",
+      "null": "NO",
+      "key": "",
+      "default": "0.00"
+    },
+    {
+      "name": "last_restocked",
+      "type": "date",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "stock_status",
+      "type": "varchar(50)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "raw_material_image",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "raw_material_image_public_id",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint",
+      "null": "NO",
+      "key": "MUL",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "scheduled_report_recipients": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "report_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "email",
+      "type": "varchar(255)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "scheduled_reports": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "report_name",
+      "type": "varchar(255)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "report_type",
+      "type": "varchar(100)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "frequency",
+      "type": "enum('daily','weekly','monthly')",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "execution_time",
+      "type": "time",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "export_format",
+      "type": "enum('pdf','csv')",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "status",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "stock_transactions": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "transaction_type",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "reference_type",
+      "type": "varchar(50)",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "reference_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "finished_good_id",
+      "type": "int",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "raw_material_id",
+      "type": "int",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "product_sku_id",
+      "type": "int",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "qty",
+      "type": "decimal(18,4)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "unit_cost",
+      "type": "decimal(18,2)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "total_cost",
+      "type": "decimal(18,2)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "storage_location_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "batch_number",
+      "type": "varchar(100)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "expiry_date",
+      "type": "date",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "notes",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "MUL",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "storage_locations": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "aisle_no",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "rack_no",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "row_no",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "location_label",
+      "type": "varchar(100)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "capacity",
+      "type": "decimal(18,2)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "current_occupancy",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint(1)",
+      "null": "NO",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "units_of_measurement": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "unit_name",
+      "type": "varchar(100)",
+      "null": "NO",
+      "key": "UNI",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint(1)",
+      "null": "NO",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "timestamp",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "timestamp",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "vendor_raw_materials": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "vendor_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "raw_material_id",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "YES",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    }
+  ],
+  "vendor_stock_receipt_items": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "receipt_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "raw_material_id",
+      "type": "int",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "received_qty",
+      "type": "decimal(18,4)",
+      "null": "NO",
+      "key": "",
+      "default": "0.0000"
+    },
+    {
+      "name": "unit_cost",
+      "type": "decimal(18,2)",
+      "null": "NO",
+      "key": "",
+      "default": "0.00"
+    },
+    {
+      "name": "total_cost",
+      "type": "decimal(18,2)",
+      "null": "NO",
+      "key": "",
+      "default": "0.00"
+    },
+    {
+      "name": "batch_number",
+      "type": "varchar(100)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "expiry_date",
+      "type": "date",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint",
+      "null": "YES",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "vendor_stock_receipts": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "grn_number",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "UNI",
+      "default": "None"
+    },
+    {
+      "name": "vendor_id",
+      "type": "int",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "po_id",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "po_number",
+      "type": "varchar(50)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "invoice_number",
+      "type": "varchar(100)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "invoice_date",
+      "type": "date",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "received_date",
+      "type": "date",
+      "null": "NO",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "transport_details",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "received_by_employee_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "notes",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "supporting_documents_img",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "supporing_img_public_id",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint",
+      "null": "YES",
+      "key": "",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ],
+  "vendors": [
+    {
+      "name": "id",
+      "type": "int",
+      "null": "NO",
+      "key": "PRI",
+      "default": "None"
+    },
+    {
+      "name": "vendor_name",
+      "type": "varchar(255)",
+      "null": "NO",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "contact_person",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "email",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "phone",
+      "type": "varchar(30)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "brand_id",
+      "type": "int",
+      "null": "YES",
+      "key": "MUL",
+      "default": "None"
+    },
+    {
+      "name": "address",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "city",
+      "type": "varchar(100)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "state",
+      "type": "varchar(100)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "pincode",
+      "type": "varchar(10)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "gst_no",
+      "type": "varchar(100)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "pan_no",
+      "type": "varchar(50)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "bank_name",
+      "type": "varchar(100)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "account_no",
+      "type": "varchar(50)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "ifsc_code",
+      "type": "varchar(50)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "payment_terms",
+      "type": "varchar(100)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "credit_limit",
+      "type": "decimal(15,2)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "vender_logo",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "vender_logo_public_id",
+      "type": "varchar(255)",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "on_time_percentage",
+      "type": "int",
+      "null": "NO",
+      "key": "",
+      "default": "0"
+    },
+    {
+      "name": "notes",
+      "type": "text",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "status",
+      "type": "tinyint",
+      "null": "NO",
+      "key": "MUL",
+      "default": "1"
+    },
+    {
+      "name": "created_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "updated_at",
+      "type": "datetime",
+      "null": "NO",
+      "key": "",
+      "default": "CURRENT_TIMESTAMP"
+    },
+    {
+      "name": "created_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    },
+    {
+      "name": "updated_admin_id",
+      "type": "int",
+      "null": "YES",
+      "key": "",
+      "default": "None"
+    }
+  ]
+}

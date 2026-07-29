@@ -45,6 +45,20 @@ class DispatchClass:
             res = conn.execute(sql, data)
         return res.mappings().all()
 
+    def parse_date_string(self, date_str):
+        if not date_str:
+            return None
+        date_str = str(date_str).strip()
+        if not date_str:
+            return None
+        try:
+            clean_str = date_str.replace("T", " ").replace("Z", "")
+            if "." in clean_str:
+                clean_str = clean_str.split(".")[0]
+            return clean_str
+        except Exception:
+            return date_str
+
     def addDispatchOrder(self, order_reference, priority, customer_id, shipping_address, 
                          notes, no_of_boxes, grand_total, tracking, dispatch_status, dispatch_date, 
                          items_to_dispatch, admin_user_id):
@@ -61,24 +75,27 @@ class DispatchClass:
         if not tracking:
             tracking = self.generate_tracking()
         
+        clean_dispatch_date = self.parse_date_string(dispatch_date)
+        
         data = {
             'order_reference': order_reference, 'priority': priority, 'customer_id': customer_id,
             'shipping_address': shipping_address, 'notes': notes, 'no_of_boxes': no_of_boxes, 'grand_total': grand_total,
             'tracking': tracking, 'dispatch_id' : dispatch_id, 'dispatch_status': dispatch_status,
-            'dispatch_date': dispatch_date if dispatch_date else None,
+            'dispatch_date': clean_dispatch_date, 'status': 1,
             'created_at': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'created_admin_id': admin_user_id
         }
 
         sql = text('''
             INSERT INTO dispatch_orders (order_reference, priority, customer_id, shipping_address, notes, no_of_boxes, 
-                                         grand_total, tracking, dispatch_id, dispatch_status, dispatch_date,
+                                         grand_total, tracking, dispatch_id, dispatch_status, dispatch_date, status,
                                          created_at, created_admin_id)
             VALUES (:order_reference, :priority, :customer_id, :shipping_address, :notes,
                     :no_of_boxes,
-                    :grand_total, :tracking, :dispatch_id, :dispatch_status, :dispatch_date,
+                    :grand_total, :tracking, :dispatch_id, :dispatch_status, :dispatch_date, :status,
                     :created_at, :created_admin_id)
         ''')
+
         
         update_client_sql = text('UPDATE clients SET total_orders = total_orders + 1 WHERE id = :customer_id')
 
@@ -125,11 +142,13 @@ class DispatchClass:
         if not items_to_dispatch or len(items_to_dispatch) == 0:
             return {"errFlag": 1, "message": "At least one item is required"}
 
+        clean_dispatch_date = self.parse_date_string(dispatch_date)
+
         data = {
             'dispatch_order_id': dispatch_order_id, 'order_reference': order_reference,
             'priority': priority, 'customer_id': customer_id, 'shipping_address': shipping_address,
             'notes': notes, 'grand_total': grand_total, 'tracking': tracking,
-            'dispatch_status': dispatch_status, 'dispatch_date': dispatch_date if dispatch_date else None,
+            'dispatch_status': dispatch_status, 'dispatch_date': clean_dispatch_date,
             'updated_at': datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             'updated_admin_id': admin_user_id
         }

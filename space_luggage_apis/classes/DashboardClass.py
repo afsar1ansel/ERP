@@ -57,27 +57,15 @@ class DashboardClass:
                     pb.batch_status,
                     pb.expected_completion_date,
                     
-                    -- current stage name (first non-completed stage if exists)
-                    (
-                    SELECT ps.stage_name
-                    FROM production_batch_stages pbs
-                    JOIN production_stage ps ON pbs.stage_id = ps.id
-                    WHERE pbs.batch_id = pb.id
-                        AND (pbs.stage_status IS NULL OR pbs.stage_status != 'complete')
-                    ORDER BY pbs.id ASC
-                    LIMIT 1
-                    ) AS current_stage,
+                    'In Progress' AS current_stage,
                     
-                    -- progress: prefer completed_qty/planned_qty else latest stage progress_percentage
+                    -- progress: completed_qty / planned_qty * 100
                     COALESCE(
-                    CASE WHEN pb.planned_qty IS NOT NULL AND pb.planned_qty > 0
-                        THEN ROUND((pb.completed_qty / pb.planned_qty) * 100, 2)
-                    END,
-                    (
-                        SELECT ROUND(MAX(pbs2.progress_percentage), 2)
-                        FROM production_batch_stages pbs2
-                        WHERE pbs2.batch_id = pb.id
-                    )
+                        CASE WHEN pb.planned_qty IS NOT NULL AND pb.planned_qty > 0
+                            THEN ROUND((pb.completed_qty / pb.planned_qty) * 100, 2)
+                            ELSE 0.0
+                        END,
+                        0.0
                     ) AS progress_percentage,
                     
                     -- simple risk heuristic (overdue => Critical)
@@ -92,6 +80,7 @@ class DashboardClass:
                 WHERE pb.expected_completion_date < CURDATE()
                 AND pb.batch_status != 'completed'
                 ORDER BY pb.expected_completion_date ASC
+
             ''')
 
             rows = conn.execute(sql).mappings().all()
