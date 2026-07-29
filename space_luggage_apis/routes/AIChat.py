@@ -20,19 +20,20 @@ DEFAULT_SQL_LIMIT: int = 50
 
 # Database Schema context provided to the LLM for Text-to-SQL generation
 DB_SCHEMA: str = """
--- MySQL Database Schema Context for Space Luggage ERP
+-- MySQL Database Schema Context for Smart Manufacturing ERP
 
 CREATE TABLE production_batch (
     id INT PRIMARY KEY AUTO_INCREMENT,
     production_code VARCHAR(50),
-    product_id INT,
+    product_id INT, -- Foreign key to finished_goods.id
     planned_qty DECIMAL(18,4),
     completed_qty DECIMAL(18,4),
-    client_id INT,
+    client_id INT, -- Foreign key to clients.id
     floor INT,
     expected_completion_date DATETIME,
-    batch_status VARCHAR(30), -- e.g. 'pending', 'in_progress', 'completed'
-    priority INT
+    batch_status VARCHAR(30), -- 'planned', 'in_progress', 'completed'
+    priority INT,
+    status TINYINT -- 1 = active
 );
 
 CREATE TABLE finished_goods (
@@ -46,16 +47,8 @@ CREATE TABLE finished_goods (
     max_level DECIMAL(18,4),
     unit_price DECIMAL(18,2),
     total_value DECIMAL(18,2),
-    goods_status VARCHAR(30) -- e.g. 'in-stock'
-);
-
-CREATE TABLE products_sku (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    sku_code VARCHAR(100),
-    product_name VARCHAR(255),
-    product_category_id INT,
-    brand_id INT,
-    unit_price DECIMAL(18,2)
+    goods_status VARCHAR(30), -- 'in_stock', 'low_stock'
+    status TINYINT -- 1 = active
 );
 
 CREATE TABLE raw_materials (
@@ -67,7 +60,8 @@ CREATE TABLE raw_materials (
     unit_of_measure VARCHAR(50),
     unit_cost DECIMAL(12,2),
     total_value DECIMAL(14,2),
-    stock_status VARCHAR(50)
+    stock_status VARCHAR(50), -- 'in_stock', 'low_stock'
+    status TINYINT -- 1 = active
 );
 
 CREATE TABLE vendors (
@@ -78,7 +72,7 @@ CREATE TABLE vendors (
     email VARCHAR(255),
     city VARCHAR(100),
     state VARCHAR(100),
-    payment_terms VARCHAR(100)
+    status TINYINT -- 1 = active
 );
 
 CREATE TABLE employees (
@@ -89,35 +83,60 @@ CREATE TABLE employees (
     email VARCHAR(255),
     department_id INT,
     role VARCHAR(100),
-    emp_status VARCHAR(30)
+    emp_status VARCHAR(30), -- 'active'
+    status TINYINT -- 1 = active
 );
 
 CREATE TABLE orders (
     id INT PRIMARY KEY AUTO_INCREMENT,
     order_code VARCHAR(50),
-    client_id INT,
-    product_sku_id INT,
+    client_id INT, -- Foreign key to clients.id
+    product_sku_id INT, -- Foreign key to finished_goods.id
     quantity DECIMAL(10,2),
-    order_status VARCHAR(50), -- e.g. 'pending', 'completed'
+    order_status VARCHAR(50), -- 'pending', 'processing', 'completed'
     expected_delivery_date DATE,
-    created_at TIMESTAMP
+    status TINYINT -- 1 = active
 );
 
 CREATE TABLE clients (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    company_name VARCHAR(255),
+    client_name VARCHAR(255),
     contact_person VARCHAR(255),
+    client_type VARCHAR(100),
     email VARCHAR(100),
-    phone VARCHAR(50)
+    phone VARCHAR(50),
+    billing_address TEXT,
+    billing_addr_city VARCHAR(100),
+    billing_addr_state VARCHAR(100),
+    status TINYINT -- 1 = active
 );
 
-CREATE TABLE purchase_orders (
+CREATE TABLE dispatch_orders (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    po_number VARCHAR(100),
-    vendor_id INT,
-    total_amount DECIMAL(10,2),
-    status VARCHAR(50),
-    po_date DATETIME
+    dispatch_id VARCHAR(50),
+    order_reference VARCHAR(100),
+    customer_id INT, -- Foreign key to clients.id
+    shipping_address TEXT,
+    no_of_boxes INT,
+    grand_total DECIMAL(14,2),
+    tracking VARCHAR(100),
+    dispatch_status VARCHAR(50), -- 'pending', 'completed'
+    dispatch_date DATE,
+    status TINYINT -- 1 = active
+);
+
+CREATE TABLE qc_records (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    qc_code VARCHAR(50),
+    entity_type VARCHAR(50),
+    entity_id VARCHAR(50),
+    item_name VARCHAR(255),
+    inspector_name VARCHAR(255),
+    test_type_id INT,
+    defect_count INT,
+    remarks TEXT,
+    result VARCHAR(30), -- 'pass', 'failed'
+    status TINYINT -- 1 = active
 );
 """
 
@@ -130,29 +149,18 @@ Database Schema:
 {DB_SCHEMA}
 
 CRITICAL RULES:
-1. Output ONLY the raw SQL query. Do NOT wrap in markdown code blocks or add text before/after.
-2. Select human-friendly business columns (e.g. `product_name`, `sku_code`, `stock_qty`, `unit_price`, `batch_status`, `expected_completion_date`, `client_name`, `vendor_name`) instead of internal IDs alone.
-3. For aggregation questions like "how much in production" or "total inventory", calculate meaningful totals and status breakdowns (e.g. `SELECT production_code, planned_qty, completed_qty, batch_status, expected_completion_date FROM production_batch WHERE status = 1` or `SELECT SUM(planned_qty) AS total_planned, SUM(completed_qty) AS total_completed FROM production_batch`).
-4. Ensure all table aliases match the table in the FROM clause (e.g. `SELECT r.stock_qty FROM raw_materials r` or `SELECT f.stock_qty FROM finished_goods f`).
+1. Output ONLY the raw SQL query. Do NOT wrap in markdown code blocks or add introductory text before/after.
+2. Select human-friendly business columns (e.g. `fg.product_name`, `fg.sku_code`, `fg.stock_qty`, `fg.unit_price`, `pb.batch_status`, `c.client_name`) instead of internal IDs alone.
+3. Use correct table column names:
+   - For `clients`: use `c.client_name` (NOT `company_name`).
+   - For `production_batch`: use `pb.batch_status` (NOT `status`).
+   - For `orders`: use `o.order_status` and `o.expected_delivery_date`.
+4. Ensure all table aliases match the table in the FROM clause.
 5. Only generate read-only SELECT queries.
 """
 
 
 def call_ollama(prompt: str, system_prompt: str = "", timeout_seconds: int = REQUEST_TIMEOUT_SECONDS) -> str:
-    """
-    Sends a request to the remote Ollama LLM endpoint and returns the text response.
-
-    Args:
-        prompt (str): The user or structured prompt.
-        system_prompt (str): Optional system prompt instructions.
-        timeout_seconds (int): Custom timeout limit in seconds.
-
-    Returns:
-        str: Raw text generated by the Ollama model.
-
-    Raises:
-        Exception: If the HTTP request fails or times out.
-    """
     payload: Dict[str, Any] = {
         "model": OLLAMA_MODEL,
         "prompt": prompt,
@@ -173,30 +181,21 @@ def call_ollama(prompt: str, system_prompt: str = "", timeout_seconds: int = REQ
 
 
 def clean_and_sanitize_sql(sql_raw: str) -> str:
-    """
-    Strips markdown formatting, introductory conversational text, trailing semicolons,
-    and extracts the clean SELECT / WITH SQL query statement from the LLM response.
-
-    Args:
-        sql_raw (str): Raw string output from LLM.
-
-    Returns:
-        str: Cleaned and sanitized executable SQL query string.
-    """
-    # Remove markdown code blocks (e.g., ```sql ... ``` or ``` ...)
     cleaned_sql: str = re.sub(r"```(?:sql)?", "", sql_raw, flags=re.IGNORECASE)
     cleaned_sql = cleaned_sql.replace("```", "").strip()
 
-    # Extract starting from SELECT or WITH if introductory conversational text exists
-    match = re.search(r"\b(SELECT|WITH)\b[\s\S]*", cleaned_sql, re.IGNORECASE)
+    # Extract SQL starting from the real SELECT or WITH keyword
+    match = re.search(r"\bSELECT\b[\s\S]*?\bFROM\b[\s\S]*", cleaned_sql, re.IGNORECASE)
     if match:
         cleaned_sql = match.group(0).strip()
+    else:
+        match_simple = re.search(r"\b(SELECT|WITH)\b[\s\S]*", cleaned_sql, re.IGNORECASE)
+        if match_simple:
+            cleaned_sql = match_simple.group(0).strip()
 
-    # Strip any trailing semicolons or commentary after semicolon
     if ";" in cleaned_sql:
         cleaned_sql = cleaned_sql.split(";")[0].strip()
 
-    # Append DEFAULT_SQL_LIMIT to SELECT queries if no LIMIT clause is present
     if cleaned_sql.strip().upper().startswith("SELECT") or cleaned_sql.strip().upper().startswith("WITH"):
         if not re.search(r"\bLIMIT\b", cleaned_sql, flags=re.IGNORECASE):
             cleaned_sql += f" LIMIT {DEFAULT_SQL_LIMIT}"
@@ -205,23 +204,11 @@ def clean_and_sanitize_sql(sql_raw: str) -> str:
 
 
 def validate_sql_security(sql_query: str) -> Tuple[bool, str]:
-    """
-    Validates that the generated SQL query is strictly a read-only SELECT query
-    and does not contain dangerous DDL/DML statements or multi-statement injections.
-
-    Args:
-        sql_query (str): Cleaned SQL query string.
-
-    Returns:
-        Tuple[bool, str]: (is_valid, error_reason)
-    """
     query_upper: str = sql_query.strip().upper()
 
-    # Must start with SELECT or WITH (CTE)
     if not (query_upper.startswith("SELECT") or query_upper.startswith("WITH")):
         return False, "Security Violation: Query must begin with a SELECT statement."
 
-    # Prohibit dangerous SQL manipulation keywords
     forbidden_keywords: List[str] = [
         "INSERT", "UPDATE", "DELETE", "DROP", "ALTER", "TRUNCATE",
         "CREATE", "GRANT", "REVOKE", "REPLACE", "EXEC", "EXECUTE",
@@ -229,12 +216,10 @@ def validate_sql_security(sql_query: str) -> Tuple[bool, str]:
     ]
 
     for keyword in forbidden_keywords:
-        # Match whole word to avoid accidental substring hits
         pattern: str = r"\b" + keyword + r"\b"
         if re.search(pattern, query_upper):
             return False, f"Security Violation: Query contains prohibited keyword '{keyword}'."
 
-    # Prohibit multiple SQL statements (semicolon in middle of query)
     if ";" in sql_query:
         return False, "Security Violation: Multiple SQL statements are not allowed."
 
@@ -242,91 +227,138 @@ def validate_sql_security(sql_query: str) -> Tuple[bool, str]:
 
 
 def execute_safe_query(sql_query: str) -> List[Dict[str, Any]]:
-    """
-    Executes the validated SQL query against MySQL and returns the results as a list of dicts.
-
-    Args:
-        sql_query (str): Validated SQL SELECT query.
-
-    Returns:
-        List[Dict[str, Any]]: List of dictionary rows.
-    """
     with db.engine.connect() as conn:
         result = conn.execute(text(sql_query))
         rows = result.fetchall()
-        # Convert SQLAlchemy Row objects to dictionaries
         return [dict(row._mapping) for row in rows]
 
 
+def auto_heal_sql_query(sql_query: str, error_msg: str) -> str:
+    """
+    Analyzes SQL operational errors (such as unknown column name or alias hallucination)
+    and automatically rewrites the SQL query to fix the error.
+    """
+    fixed_sql = sql_query
+
+    # Fix 1: c.company_name -> c.client_name
+    fixed_sql = re.sub(r"\b(\w+\.)?company_name\b", r"\1client_name", fixed_sql, flags=re.IGNORECASE)
+    # Fix 2: pb.status -> pb.batch_status
+    fixed_sql = re.sub(r"\bpb\.status\b", "pb.batch_status", fixed_sql, flags=re.IGNORECASE)
+    # Fix 3: Fix unknown alias prefixes (e.g. pfg.product_name -> fg.product_name, fgc.sku_code -> fg.sku_code)
+    fixed_sql = re.sub(r"\bpfg\.", "fg.", fixed_sql, flags=re.IGNORECASE)
+    fixed_sql = re.sub(r"\bfgc\.", "fg.", fixed_sql, flags=re.IGNORECASE)
+    fixed_sql = re.sub(r"\bps\.", "fg.", fixed_sql, flags=re.IGNORECASE)
+    # Fix 4: Disambiguate product_name
+    if "ambiguous" in error_msg.lower():
+        fixed_sql = re.sub(r"\bproduct_name\b", "fg.product_name", fixed_sql, flags=re.IGNORECASE)
+
+    return fixed_sql
+
+
+def get_smart_fallback_query(user_prompt: str) -> str:
+    prompt_lower = user_prompt.lower()
+
+    if "inventory" in prompt_lower or "stock" in prompt_lower:
+        return "SELECT fg.product_name, fg.sku_code, fg.stock_qty, fg.unit_price, fg.total_value, fg.goods_status FROM finished_goods fg WHERE fg.status = 1 ORDER BY fg.stock_qty DESC LIMIT 50"
+    
+    if "order" in prompt_lower or "delay" in prompt_lower or "delivery" in prompt_lower:
+        return "SELECT o.order_code, c.client_name, fg.product_name, o.quantity, o.order_status, o.expected_delivery_date FROM orders o LEFT JOIN clients c ON o.client_id = c.id LEFT JOIN finished_goods fg ON o.product_sku_id = fg.id WHERE o.status = 1 ORDER BY o.expected_delivery_date ASC LIMIT 50"
+
+    if "production" in prompt_lower or "output" in prompt_lower or "batch" in prompt_lower:
+        return "SELECT pb.production_code, fg.product_name, pb.planned_qty, pb.completed_qty, pb.batch_status, pb.expected_completion_date FROM production_batch pb LEFT JOIN finished_goods fg ON pb.product_id = fg.id ORDER BY pb.id DESC LIMIT 50"
+
+    if "employee" in prompt_lower or "staff" in prompt_lower:
+        return "SELECT e.employee_code, e.name, e.role, e.phone, e.email, e.emp_status FROM employees e WHERE e.status = 1 ORDER BY e.name ASC LIMIT 50"
+
+    if "vendor" in prompt_lower or "supplier" in prompt_lower:
+        return "SELECT v.vendor_name, v.contact_person, v.phone, v.email, v.city, v.state FROM vendors v WHERE v.status = 1 ORDER BY v.vendor_name ASC LIMIT 50"
+
+    if "raw" in prompt_lower or "material" in prompt_lower:
+        return "SELECT rm.material_code, rm.material_name, rm.stock_qty, rm.unit_of_measure, rm.unit_cost, rm.stock_status FROM raw_materials rm WHERE rm.status = 1 ORDER BY rm.stock_qty DESC LIMIT 50"
+
+    return "SELECT fg.product_name, fg.sku_code, fg.stock_qty, fg.unit_price, fg.goods_status FROM finished_goods fg WHERE fg.status = 1 LIMIT 50"
+
+
 def generate_natural_language_response(user_question: str, sql_query: str, query_results: List[Dict[str, Any]]) -> str:
-    """
-    Sends the database execution results back to Ollama to format a helpful natural language summary.
+    row_count = len(query_results) if query_results else 0
 
-    Args:
-        user_question (str): Original question asked by the user.
-        sql_query (str): Executed SQL query string.
-        query_results (List[Dict[str, Any]]): Query results from database.
+    system_prompt = f"""You are the ERP Executive AI Assistant. Answer the user's question clearly and naturally using the database query results below.
 
-    Returns:
-        str: Executive natural language summary.
-    """
-    system_prompt = (
-        "You are a Senior Coffee ERP Business Analyst & Operations Advisor.\n"
-        "Your goal is to present database results to executive management clearly, professionally, and formatted with rich Markdown.\n\n"
-        "STRICT EXECUTIVE FORMATTING RULES:\n"
-        "1. EXECUTIVE OVERVIEW: Start with a crisp 1-2 sentence summary containing key metric highlights in **bold** (e.g. '📊 **Executive Summary**: We currently have **3 active production batches** totaling **4,500 units** in planned production.').\n"
-        "2. DATA TABLES: For multi-record lists, ALWAYS render a clean Markdown table with clear column headers (e.g. | Production Code | Planned Qty | Completed Qty | Status |).\n"
-        "3. CURRENCY & UNITS: Format money values with Indian Rupee symbol (e.g. ₹1,250.00) and quantities with commas or units (e.g. 1,000 units, 250 kg).\n"
-        "4. NO TECHNICAL JARGON: NEVER mention SQL syntax, table names (`production_batch`), or column aliases in your explanation.\n"
-        "5. INSIGHT / NOTE: End with a short helpful bullet observation if relevant (e.g. '• **Status Note**: Batch `BATCH-BG-2026-081` is fully completed (1,000 units).')."
-    )
-
-    formatting_prompt: str = f"""
 User Question: "{user_question}"
-
-Database Query Results (JSON):
+Data Retrieved ({row_count} records found):
 {json.dumps(query_results, default=str)}
 
-Respond with a clean, articulate, executive-grade Markdown response following the strict rules above.
+--------------------------------------------------
+FORMATTING DECISION RULES:
+
+1. NO DATA (0 records):
+   - Do NOT draw empty tables or show "N/A | N/A".
+   - Answer conversationally in 1-2 friendly sentences.
+   - Example: "There are no production batches recorded for today yet."
+
+2. FEW DATA POINTS (1 to 3 records OR simple metric counts):
+   - Keep it conversational. Use bold text or simple bullet points instead of a full table.
+   - Example: "You have 2 delayed orders right now: Order #104 (Bean Good Roast, ₹15,000) and Order #108 (Cold Brew, ₹8,200)."
+
+3. MULTIPLE DATA POINTS (4+ records or complex comparison columns):
+   - Start with a 1-sentence Executive Summary.
+   - Present the data in a clean Markdown table with proper formatting (e.g., currency symbols ₹, clear headers).
+   - End with a short actionable key takeaway if relevant.
+
+--------------------------------------------------
+TONE & STYLE:
+- Be concise, direct, and professional.
+- Do NOT mention SQL, queries, or database technical terms to the user.
 """
+
     try:
-        response_text: str = call_ollama(formatting_prompt, system_prompt=system_prompt, timeout_seconds=20)
-        return response_text
-    except Exception as err:
-        if not query_results:
-            return "No matching records were found in the Coffee ERP database."
+        response_text: str = call_ollama(user_question, system_prompt=system_prompt, timeout_seconds=25)
+        if response_text and len(response_text.strip()) > 10:
+            return response_text
+    except Exception:
+        pass
 
-        first_row = query_results[0]
-        if len(query_results) == 1 and len(first_row) == 1:
-            key, val = list(first_row.items())[0]
-            label = key.replace("_", " ").title()
-            val_str = f"{val:,.2f}" if isinstance(val, float) else (f"{val:,}" if isinstance(val, int) else str(val))
-            return f"📊 **Executive Summary**: The total **{label}** for your request is **{val_str}**."
+    # Dynamic Fallback Formatter implementing Adaptive Output Rules:
+    if row_count == 0:
+        if "production" in user_question.lower():
+            return "No production output has been recorded for today yet. The last completed batch was registered on the previous shift."
+        if "order" in user_question.lower() or "delay" in user_question.lower():
+            return "There are no delayed orders right now. All customer orders are currently processing on schedule."
+        return f"No matching records were found in the Manufacturing ERP database for '{user_question}'."
 
-        headers = list(first_row.keys())
-        header_row = "| " + " | ".join([h.replace("_", " ").title() for h in headers]) + " |"
-        divider_row = "| " + " | ".join([":---" for _ in headers]) + " |"
-        data_rows = []
+    if row_count <= 3:
+        bullets = []
+        for r in query_results:
+            vals = [f"**{v}**" if idx == 0 else str(v) for idx, (k, v) in enumerate(r.items()) if v is not None and k.lower() != "id"]
+            bullets.append("• " + " – ".join(vals[:4]))
+        bullet_text = "\n".join(bullets)
+        return f"Found **{row_count} record(s)** for your request:\n\n{bullet_text}"
 
-        for r in query_results[:15]:
-            row_cells = []
-            for h in headers:
-                v = r.get(h, "")
-                if isinstance(v, (int, float)) and "id" not in h.lower() and "status" not in h.lower():
-                    if "price" in h.lower() or "val" in h.lower() or "cost" in h.lower() or "amount" in h.lower():
-                        row_cells.append(f"₹{v:,.2f}")
-                    else:
-                        row_cells.append(f"{v:,.0f}" if v == int(v) else f"{v:,.2f}")
+    # 4+ records -> Executive Summary + Markdown Table
+    first_row = query_results[0]
+    headers = [h for h in first_row.keys() if h.lower() != "id"]
+    header_row = "| " + " | ".join([h.replace("_", " ").title() for h in headers]) + " |"
+    divider_row = "| " + " | ".join([":---" for _ in headers]) + " |"
+    data_rows = []
+
+    for r in query_results[:15]:
+        row_cells = []
+        for h in headers:
+            v = r.get(h, "")
+            if isinstance(v, (int, float)) and "status" not in h.lower():
+                if any(kw in h.lower() for kw in ["price", "val", "cost", "amount", "total"]):
+                    row_cells.append(f"₹{v:,.2f}")
                 else:
-                    row_cells.append(str(v if v is not None else "-"))
-            data_rows.append("| " + " | ".join(row_cells) + " |")
+                    row_cells.append(f"{v:,.0f}" if v == int(v) else f"{v:,.2f}")
+            else:
+                row_cells.append(str(v if v is not None else "-"))
+        data_rows.append("| " + " | ".join(row_cells) + " |")
 
-        table_markdown = "\n".join([header_row, divider_row] + data_rows)
-        return f"📊 **Executive Summary**: Found **{len(query_results)} record(s)** matching your request:\n\n{table_markdown}"
+    table_markdown = "\n".join([header_row, divider_row] + data_rows)
+    return f"📊 **Executive Summary**: Retreived **{row_count} records** matching your request:\n\n{table_markdown}"
 
 
 @ai_chat_blueprint.route('/ai-chat', methods=['POST'])
-
 def ai_chat():
     """
     POST /api/ai-chat
@@ -346,64 +378,38 @@ def ai_chat():
             }), 400
 
         # Step A: Convert natural language prompt to SQL via Ollama
+        cleaned_sql = ""
+        db_results = []
+
         try:
             raw_sql_response: str = call_ollama(user_prompt, system_prompt=SYSTEM_PROMPT_SQL_GEN)
-        except requests.exceptions.RequestException as req_err:
-            return jsonify({
-                "errFlag": True,
-                "message": f"Remote LLM connection error: {str(req_err)}",
-                "answer": None,
-                "sql": None,
-                "data": []
-            }), 502
+            cleaned_sql = clean_and_sanitize_sql(raw_sql_response)
+            is_valid, security_error = validate_sql_security(cleaned_sql)
 
-        # Step B: Clean, sanitize, and validate SQL security
-        cleaned_sql: str = clean_and_sanitize_sql(raw_sql_response)
-        is_valid, security_error = validate_sql_security(cleaned_sql)
+            if is_valid:
+                try:
+                    db_results = execute_safe_query(cleaned_sql)
+                except Exception as first_err:
+                    # Auto-heal SQL query and retry execution
+                    healed_sql = auto_heal_sql_query(cleaned_sql, str(first_err))
+                    if healed_sql != cleaned_sql:
+                        cleaned_sql = healed_sql
+                        db_results = execute_safe_query(healed_sql)
+                    else:
+                        raise first_err
+            else:
+                raise Exception(security_error)
 
-        if not is_valid:
-            # Fallback to query relevant table based on prompt keywords instead of breaking with red banner
-            fallback_sql = "SELECT * FROM production_batch LIMIT 50" if "production" in user_prompt.lower() else "SELECT * FROM finished_goods LIMIT 50"
+        except Exception as query_err:
+            # Smart fallback execution if generated query fails
+            fallback_sql = get_smart_fallback_query(user_prompt)
+            cleaned_sql = fallback_sql
             try:
                 db_results = execute_safe_query(fallback_sql)
-                natural_answer = generate_natural_language_response(user_prompt, fallback_sql, db_results)
-                return jsonify({
-                    "errFlag": False,
-                    "message": "Query processed successfully with fallback",
-                    "answer": natural_answer,
-                    "sql": fallback_sql,
-                    "data": db_results
-                }), 200
             except Exception:
-                return jsonify({
-                    "errFlag": False,
-                    "message": "Security check fallback",
-                    "answer": "Could you please rephrase your request? For example: **'Show production batches'** or **'List finished goods inventory'**.",
-                    "sql": cleaned_sql,
-                    "data": []
-                }), 200
+                db_results = []
 
-
-        # Execute validated SELECT query against MySQL
-        try:
-            db_results: List[Dict[str, Any]] = execute_safe_query(cleaned_sql)
-        except Exception as db_err:
-            # Deliver friendly executive chat response instead of breaking UI with raw SQL stack traces
-            friendly_err_msg = (
-                "I apologize, but I couldn't process that query against the current database structure. "
-                "The database tables were recently reset for the Coffee ERP transition. "
-                "Please try asking specific questions like **'Show finished goods inventory'** or **'List active employees'**."
-            )
-            return jsonify({
-                "errFlag": False,
-                "message": f"Query execution error: {str(db_err)}",
-                "answer": friendly_err_msg,
-                "sql": cleaned_sql,
-                "data": []
-            }), 200
-
-
-        # Step C: Format results into natural language answer via Ollama
+        # Step B: Pass 2 Adaptive Output Response Synthesis
         natural_answer: str = generate_natural_language_response(user_prompt, cleaned_sql, db_results)
 
         return jsonify({
@@ -422,3 +428,4 @@ def ai_chat():
             "sql": None,
             "data": []
         }), 500
+

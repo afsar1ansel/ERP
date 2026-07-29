@@ -65,8 +65,9 @@ const Index = () => {
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
             <p className="text-muted-foreground">
-              Welcome to Space Luggage Inventory Management System
+              Welcome to Smart Manufacturing ERP
             </p>
+
           </div>
           <div>
             <Popover open={isScannerOpen} onOpenChange={setIsScannerOpen}>

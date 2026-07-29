@@ -21,7 +21,8 @@ const inventoryData = [
   {
     id: "SL-BAG-001",
     name: "Professional Laptop Bag",
-    brand: "Space Luggage",
+    brand: "Bean Good Specialty",
+
     variant: "Black - 15 inch",
     currentStock: 145,
     reorderLevel: 50,
@@ -32,7 +33,8 @@ const inventoryData = [
   {
     id: "SL-BAG-002", 
     name: "Travel Duffel Bag",
-    brand: "Space Luggage",
+    brand: "Bean Good Specialty",
+
     variant: "Navy Blue - Large",
     currentStock: 23,
     reorderLevel: 30,

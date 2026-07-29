@@ -39,10 +39,11 @@ const SHOW_DEV_TOOLS = false; // Set to false so normal users do not see SQL / T
 
 
 const SUGGESTED_PROMPTS: string[] = [
-  "Show me total count of finished goods",
-  "How much production did we do this year?",
-  "List active employees"
+  "What's our current inventory?",
+  "Which orders are delayed?",
+  "Show me today's production output."
 ];
+
 
 // Lightweight Markdown Renderer Component for Executive Tables & Formatted Text
 const FormattedMarkdown: React.FC<{ content: string }> = ({ content }) => {
@@ -156,10 +157,12 @@ export const AIChatDrawer: React.FC = () => {
     {
       id: "init-1",
       sender: "bot",
-      text: "Hello! I am your AI Database Assistant. Ask me any question about ERP inventory, production, or orders.",
+      text: "Meet Your AI-Powered Manufacturing ERP.\n\nThe AI Assistant analyzes your ERP data and delivers instant, human-like responses. What was once hidden inside reports is now just a conversation away.",
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
     }
   ]);
+
+
 
   // State to track expanded SQL accordion per message
   const [expandedSqlId, setExpandedSqlId] = useState<string | null>(null);
@@ -276,7 +279,7 @@ export const AIChatDrawer: React.FC = () => {
                     qwen2.5-coder
                   </span>
                 </h3>
-                <p className="text-[11px] text-muted-foreground">Space Luggage Assistant</p>
+                <p className="text-[11px] text-muted-foreground">Meet Your AI-Powered Manufacturing ERP.</p>
               </div>
             </div>
 

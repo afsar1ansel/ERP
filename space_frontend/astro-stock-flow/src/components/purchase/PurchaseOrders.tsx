@@ -21,7 +21,8 @@ const purchaseOrderData = [
     totalAmount: "₹1,25,000",
     expectedDelivery: "2024-03-22",
     status: "Approved",
-    brand: "Space Luggage"
+    brand: "Bean Good Specialty"
+
   },
   {
     id: "PO-2024-002", 
@@ -41,7 +42,8 @@ const purchaseOrderData = [
     totalAmount: "₹32,400",
     expectedDelivery: "2024-03-18",
     status: "Received",
-    brand: "Space Luggage"
+    brand: "Bean Good Specialty"
+
   },
   {
     id: "PO-2024-004",

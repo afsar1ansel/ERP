@@ -38,11 +38,11 @@ interface AIChatAssistantProps {
 const SHOW_DEV_TOOLS = false; // Set to false so normal users do not see SQL / Table inspect accordions
 
 const QUICK_SUGGESTIONS = [
-  "Finished Goods Inventory",
-  "Total Production Count",
-  "List Active Employees",
-  "Raw Material Stock"
+  "What's our current inventory?",
+  "Which orders are delayed?",
+  "Show me today's production output."
 ];
+
 
 // Lightweight Markdown Renderer Component for Executive Tables & Formatted Text
 const FormattedMarkdown: React.FC<{ content: string }> = ({ content }) => {
@@ -156,10 +156,13 @@ export const AIChatAssistant: React.FC<AIChatAssistantProps> = ({ mode = "floati
     {
       id: "welcome-1",
       sender: "assistant",
-      text: "Hello! I am your Space Luggage ERP AI Assistant. Ask me anything about inventory, production batches, raw materials, employees, or orders.",
+      text: "Meet Your AI-Powered Manufacturing ERP.\n\nThe AI Assistant analyzes your ERP data and delivers instant, human-like responses. What was once hidden inside reports is now just a conversation away.",
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
     }
   ]);
+
+
+
 
   // State to track open/closed accordions per message ID
   const [openSqlId, setOpenSqlId] = useState<string | null>(null);
@@ -268,8 +271,9 @@ export const AIChatAssistant: React.FC<AIChatAssistantProps> = ({ mode = "floati
             </h3>
             <p className="text-[11px] text-muted-foreground flex items-center space-x-1">
               <Database className="w-3 h-3 text-muted-foreground" />
-              <span>Space Luggage MySQL</span>
+              <span>Manufacturing MySQL</span>
             </p>
+
           </div>
         </div>
 

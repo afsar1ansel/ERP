@@ -347,7 +347,8 @@ class ReportsClass:
                     details_cell.append(Paragraph(f"<b>Address:</b> {company_info['address']}", address_style))
             else:
                 # Fallback if no company info
-                details_cell.append(Paragraph("SPACE LUGGAGE", company_name_style))
+                details_cell.append(Paragraph("SMART MANUFACTURING ERP", company_name_style))
+
                 details_cell.append(Paragraph("Company Information Not Available", company_details_style))
             
             # Create header table with two columns
