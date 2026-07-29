@@ -157,7 +157,7 @@ export const AIChatDrawer: React.FC = () => {
     {
       id: "init-1",
       sender: "bot",
-      text: "Meet Your AI-Powered Manufacturing ERP.\n\nThe AI Assistant analyzes your ERP data and delivers instant, human-like responses. What was once hidden inside reports is now just a conversation away.",
+      text: "Meet Your AI-Powered Manufacturing ERP.\n\nThe AI Assistant analyzes your ERP data and delivers instant. What was once hidden inside reports is now just a conversation away.",
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
     }
   ]);
